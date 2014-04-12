@@ -1,0 +1,54 @@
+<?php
+// module/User/view/user/user/index.phtml:
+
+$title = 'List Users';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('user', array('action' => 'add')); ?>">Add new user</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-hover" id="listusers">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Modified Date</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($users as $user) : ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($user->username); ?></td>
+                    <td><?php echo $this->escapeHtml($user->firstname); ?></td>
+                    <td><?php echo $this->escapeHtml($user->lastname); ?></td>
+                    <td><?php echo $this->escapeHtml($user->phone); ?></td>
+                    <td><?php echo $this->escapeHtml($user->modified); ?></td>
+                    <td>
+                        <a href="<?php echo $this->url('user', array('action' => 'edit', 'id' => $user->id));
+                ?>">Edit</a>
+                        <a href="<?php echo $this->url('user', array('action' => 'delete', 'id' => $user->id));
+                ?>">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+                
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    /* Table initialisation */
+    $(document).ready(function() {
+        $('#listusers').dataTable({
+            "bSort": false, // Disable sorting
+            "iDisplayLength": 5, // records per page
+            "sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
+            "sPaginationType": "bootstrap"
+        });
+    });
+</script> 
